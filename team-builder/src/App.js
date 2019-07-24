@@ -3,33 +3,42 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [userData, setUserData] = useState({username: "", email: "", password: ""})
+  const [userData, setUserData] = useState({username: "", email: "", role: ""})
+  const [userDataStorage, setUserDataStorage] = useState([])
+ 
 
   function handleChange(event) {
 
     const updatedUser = { ...userData, [event.target.name]: event.target.value };
-    console.log(
-      "handleChange",
-      event.target.name,
-      event.target.value,
-      updatedUser
-    );
     setUserData(updatedUser);
+    
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("username", userData.username);
+    setUserDataStorage([...userDataStorage, userData])
   }
 
-  const TeamCard = () => {
+  const EditInfo = () => {
+    alert("It worked!");
     return (
-    <div>
-      <p>{userData.username}</p>
-    </div>
+      <div>
+        <form>
+          <fieldset>
+            <legend>Sign Up</legend>
+              <label for="username">New username</label>
+                <input type="text" name="username" placeholder="username" value={userData.username} onChange={handleChange}></input>
+              <label for="email">Email</label>
+                <input type="text" name="email" placeholder="email" value={userData.email} onChange={handleChange}></input>
+              <label for="role">Role</label>
+                <input type="text" name="role" placeholder="Role" value={userData.role} onChange={handleChange}></input>
+              <button>Submit</button>
+          </fieldset>
+        </form>
+      </div>
     )
   }
-
+  
   return (
     <div className="App">
       <section className="formContainer">
@@ -40,13 +49,24 @@ function App() {
                 <input type="text" name="username" placeholder="username" value={userData.username} onChange={handleChange}></input>
               <label for="email">Email</label>
                 <input type="text" name="email" placeholder="email" value={userData.email} onChange={handleChange}></input>
-              <label for="password">Password</label>
-                <input type="password" name="password" placeholder="password" value={userData.password} onChange={handleChange}></input>
+              <label for="role">Role</label>
+                <input type="text" name="role" placeholder="Role" value={userData.role} onChange={handleChange}></input>
               <button>Submit</button>
           </fieldset>
         </form>
       </section>
-    <TeamCard />
+    {userDataStorage.map((user) => {
+      return(
+        <div className="TeamContainer">
+          {user.username}
+          <br></br>
+          {user.email}
+          <button onClick={EditInfo}>Edit Info</button>
+          
+          
+        </div>
+      )
+    })}
     </div>
   );
 }

@@ -31,3 +31,12 @@
     transform: rotate(360deg);
   }
 }
+
+.TeamContainer {
+  display: flex;
+  flex-direction: column;
+  color: blue;
+  border: solid;
+  width: 300px;
+  height: 100px;
+}
